@@ -48,6 +48,9 @@ trait HandlesValidationErrors
      */
     public function hasError(string $name, string $bag = 'default'): bool
     {
+        if(!request()->hasSession())
+            return false;
+
         $name = str_replace(['[', ']'], ['.', ''], Str::before($name, '[]'));
 
         $errorBag = $this->getErrorBag($bag);
